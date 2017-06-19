@@ -2,7 +2,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
     <j:forEach items="${it.nodes}" var="node" varStatus="st">
         <li>
-            <a href="${node.key}">${node.key}</a>
+            <a href="artifact/${node.key}">${node.key}</a>
             <j:if test="${node.value.nodes.size() != 0}">
                 <ul>
                     <st:include page="filetree.jelly" it="${node.value}" from="${from}"/>
@@ -11,9 +11,11 @@
             <j:if test="${node.value.leafs.size() != 0}">
                 <ul>
                     <li>
-                        <a href="test" class="leaf">
+                        <a class="leaf">
                         <j:forEach items="${node.value.leafs}" var="img" varStatus="st">
-                            <img src="artifact/${img.name}" title="Root: ${img.baseRoot}" width="${from.imageWidthText}" />
+							<a href="artifact/${img.name}" class="leaf">
+								<img src="artifact/${img.name}" title="Root: ${img.baseRoot}" width="${from.imageWidthText}" />
+							</a>
                         </j:forEach>
                         </a>
                     </li>

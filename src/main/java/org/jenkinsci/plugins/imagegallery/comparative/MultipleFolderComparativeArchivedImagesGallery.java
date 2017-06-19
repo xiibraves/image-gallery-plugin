@@ -109,8 +109,8 @@ public class MultipleFolderComparativeArchivedImagesGallery extends ComparativeA
 					FilePath[] files = folder.list("**");
 					for (FilePath path : files) {
 						List<String> filepath = new ArrayList<String>();
-						filepath.add(folder.getName());
 						String folderName = getBaseRootFolder() + "/" + folder.getName();
+						filepath.add(folderName);
 						tree.addToBranch(filepath, new FilePair(folderName, folderName + "/" + path.getName()));
 					}
 				}
