@@ -102,7 +102,7 @@ public class ImageGalleryRecorder extends Recorder {
 	@Override
 	public boolean perform(AbstractBuild<?, ?> build, Launcher launcher,
 			BuildListener listener) throws InterruptedException, IOException {
-		listener.getLogger().append("Creating image galleries.");
+		listener.getLogger().println("Creating image galleries.");
 		boolean r = true;
 		for(ImageGallery imageGallery : this.imageGalleries) {
 			try {

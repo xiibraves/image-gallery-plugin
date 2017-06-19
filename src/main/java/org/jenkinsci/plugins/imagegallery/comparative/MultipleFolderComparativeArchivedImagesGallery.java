@@ -25,6 +25,7 @@ package org.jenkinsci.plugins.imagegallery.comparative;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,7 +95,7 @@ public class MultipleFolderComparativeArchivedImagesGallery extends ComparativeA
 
 	@Override
 	public boolean createImageGallery(AbstractBuild<?, ?> build, BuildListener listener) throws InterruptedException, IOException {
-		listener.getLogger().append("Creating archived images gallery.");
+		listener.getLogger().println("Creating archived images gallery.");
 		if (build.getHasArtifacts()) {
 			File artifactsDir = build.getArtifactsDir().getAbsoluteFile();
 			FilePath artifactsPath = new FilePath(new File(artifactsDir.getAbsoluteFile(), getBaseRootFolder()));
@@ -107,9 +108,10 @@ public class MultipleFolderComparativeArchivedImagesGallery extends ComparativeA
 				for (FilePath folder : baseFolders) {
 					FilePath[] files = folder.list("**");
 					for (FilePath path : files) {
-						List<String> filepath = getRelativeFrom(path, folder);
-                        List<String> artifactsRelativeFile = getRelativeFrom(path, artifactsPath.getParent());
-						tree.addToBranch(filepath, new FilePair(folder.getName(), StringUtils.join(artifactsRelativeFile, '/')));
+						List<String> filepath = new ArrayList<String>();
+						filepath.add(folder.getName());
+						String folderName = getBaseRootFolder() + "/" + folder.getName();
+						tree.addToBranch(filepath, new FilePair(folderName, folderName + "/" + path.getName()));
 					}
 				}
 				String title = Util.replaceMacro(build.getEnvironment(listener).expand(getTitle()), build.getBuildVariableResolver());

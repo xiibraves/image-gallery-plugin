@@ -113,7 +113,7 @@ public class ArchivedImagesGallery extends AbstractArchivedImagesGallery {
 	 */
 	@Override
 	public boolean createImageGallery(AbstractBuild<?, ?> build, BuildListener listener) throws InterruptedException, IOException {
-		listener.getLogger().append("Creating archived images gallery.");
+		listener.getLogger().println("Creating archived images gallery.");
 		if(build.getHasArtifacts()) {
 			File artifactsDir = build.getArtifactsDir();
 			FilePath artifactsPath = new FilePath(artifactsDir);
